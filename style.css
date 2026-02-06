@@ -6,111 +6,104 @@
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-  overflow: hidden;
+html {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 body {
   font-family: "Georgia", "Times New Roman", serif;
-  background-color: #efece6;
-  color: #1a1a1a;
-  height: 100vh;
+  background-color: #0a0a0a;
+  color: #f0f0f0;
 }
 
-/* ── Split layout ── */
+/* ── Section 1: Fullscreen video hero ── */
 
-.split-layout {
-  display: flex;
-  height: 100vh;
-}
-
-/* ── Left side: big polymer video ── */
-
-.video-left {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  overflow: hidden;
+.hero {
   position: relative;
+  height: 100vh;
+  scroll-snap-align: start;
+  overflow: hidden;
+  background-color: #000000;
 }
 
-.video-left video {
-  height: 90vh;
-  width: auto;
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  /* Let it bleed off the left edge for dramatic effect */
-  margin-left: -5vw;
 }
 
-/* ── Right side: ball video + text ── */
+/* ── Scroll hint arrow ── */
 
-.content-right {
-  flex: 1;
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s ease-in-out infinite;
+  z-index: 2;
+}
+
+.scroll-arrow {
+  font-size: 2rem;
+  color: rgba(255,255,255,0.6);
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* ── Section 2: Contact ── */
+
+.contact {
+  height: 100vh;
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  padding: 2rem 4rem 3.5rem 2rem;
-  text-align: right;
-}
-
-/* ── Ball video (small molecule) ── */
-
-.ball-video {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  max-width: 500px;
-}
-
-.ball-video video {
-  width: clamp(120px, 18vw, 280px);
-  height: auto;
-  object-fit: contain;
-}
-
-/* ── Tagline ── */
-
-.tagline {
-  font-style: italic;
-  font-size: clamp(1.2rem, 2vw, 2rem);
-  line-height: 1.6;
-  max-width: 500px;
-  margin-bottom: 2rem;
-  color: #2a2a2a;
-}
-
-/* ── Horizontal rules ── */
-
-.rule {
-  border: none;
-  height: 3px;
-  background-color: #1a1a1a;
-  width: 100%;
-  max-width: 500px;
-}
-
-/* ── Title ── */
-
-.title {
-  font-family: "Georgia", "Times New Roman", serif;
-  font-size: clamp(3.5rem, 9vw, 10rem);
-  font-weight: 400;
-  color: #6b7cff;
-  letter-spacing: 0.02em;
-  padding: 0.6rem 0;
-}
-
-/* ── Coming soon ── */
-
-.coming-soon {
-  margin-top: 1.5rem;
-  font-style: italic;
-  font-size: clamp(1.8rem, 3.5vw, 4rem);
+  text-align: center;
+  padding: 2rem;
+  background-color: #efece6;
   color: #1a1a1a;
-  letter-spacing: 0.05em;
+}
+
+.contact-heading {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
+}
+
+.contact-text {
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  line-height: 1.7;
+  max-width: 550px;
+  margin-bottom: 2.5rem;
+  color: #3a3a3a;
+}
+
+.contact-btn {
+  display: inline-block;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  color: #6b7cff;
+  text-decoration: none;
+  border: 2px solid #6b7cff;
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.contact-btn:hover {
+  background-color: #6b7cff;
+  color: #ffffff;
 }
 
 /* ── Logo ── */
@@ -123,66 +116,32 @@ body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem;
+  z-index: 10;
+  mix-blend-mode: difference;
 }
 
 .logo-icon {
   font-size: 1.8rem;
-  color: #8a9adb;
+  color: #ffffff;
 }
 
 .logo-text {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
   letter-spacing: 0.15em;
-  color: #555;
+  color: rgba(255,255,255,0.7);
   font-weight: 400;
 }
 
 .logo-text strong {
   font-weight: 700;
-  color: #1a1a1a;
+  color: #ffffff;
 }
 
 /* ── Responsive ── */
 
 @media (max-width: 768px) {
-  .split-layout {
-    flex-direction: column;
-  }
-
-  .content-right {
-    align-items: center;
-    text-align: center;
-    padding: 2rem;
-    order: -1;
-  }
-
-  .ball-video {
-    justify-content: center;
-  }
-
-  .ball-video video {
-    width: 140px;
-  }
-
-  .video-left {
-    justify-content: center;
-  }
-
-  .video-left video {
-    height: 40vh;
-    margin-left: 0;
-  }
-
-  .title {
-    font-size: 3.5rem;
-  }
-
-  .tagline {
-    font-size: 1rem;
-  }
-
-  .coming-soon {
-    font-size: 1.5rem;
+  .contact-heading {
+    font-size: 2.5rem;
   }
 }

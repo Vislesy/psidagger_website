@@ -25,36 +25,28 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="split-layout">
-    <div class="video-left">
-      <video autoplay muted loop playsinline>
-        <source src="Video/second_video.mp4" type="video/mp4">
-      </video>
+  <!-- Section 1: Fullscreen video hero -->
+  <section class="hero" id="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span class="scroll-arrow">&#8595;</span>
     </div>
+  </section>
 
-    <div class="content-right">
-      <p class="tagline">
-        We will be the one-stop-shop for all polymer engineering&mdash;we
-        will make better-performing polymers much faster, outcompeting
-        incumbents across multiple industries
-      </p>
+  <!-- Section 2: Contact -->
+  <section class="contact" id="contact">
+    <h2 class="contact-heading">Get in touch</h2>
+    <p class="contact-text">
+      We&rsquo;d love to hear from you. Whether you&rsquo;re exploring a partnership
+      or just curious about what we do&mdash;reach out.
+    </p>
+    <a class="contact-btn" href="mailto:hello@psidagger.com">hello@psidagger.com</a>
+  </section>
 
-      <hr class="rule">
-
-      <div class="ball-video">
-        <video autoplay muted loop playsinline>
-          <source src="Video/first_video.mp4" type="video/mp4">
-        </video>
-      </div>
-
-      <h1 class="title">PsiDagger</h1>
-
-      <hr class="rule">
-
-      <p class="coming-soon">coming soon...</p>
-    </div>
-  </main>
-
+  <!-- Logo (always visible) -->
   <div class="logo">
     <span class="logo-icon">&Psi;<sup>&dagger;</sup></span>
     <span class="logo-text">PSI<strong>DAGGER</strong></span>
