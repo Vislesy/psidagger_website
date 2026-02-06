@@ -83,7 +83,7 @@ body {
   justify-content: center;
   padding: 2rem;
   text-align: center;
-  max-width: 720px;
+  max-width: 800px;
   margin: 0 auto;
   width: 100%;
 }
@@ -92,9 +92,9 @@ body {
 
 .tagline {
   font-style: italic;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   line-height: 1.6;
-  max-width: 580px;
+  max-width: 640px;
   margin-bottom: 2.5rem;
   color: #2a2a2a;
 }
@@ -106,14 +106,14 @@ body {
   height: 3px;
   background-color: #1a1a1a;
   width: 100%;
-  max-width: 560px;
+  max-width: 620px;
 }
 
 /* ── Title ── */
 
 .title {
   font-family: "Georgia", "Times New Roman", serif;
-  font-size: 5.5rem;
+  font-size: 9rem;
   font-weight: 400;
   color: #6b7cff;
   letter-spacing: 0.02em;
@@ -147,7 +147,7 @@ body {
 .coming-soon {
   margin-top: 2rem;
   font-style: italic;
-  font-size: 2rem;
+  font-size: 3rem;
   color: #1a1a1a;
   letter-spacing: 0.05em;
 }
