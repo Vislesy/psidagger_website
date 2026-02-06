@@ -25,16 +25,7 @@ body {
   height: 100vh;
   scroll-snap-align: start;
   overflow: hidden;
-  background-color: #000000;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.7) 80%, #000000 100%);
-  pointer-events: none;
-  z-index: 1;
+  background-color: #F1F1EC; /* RGB: 241, 241, 236 */
 }
 
 .hero-media {
@@ -58,7 +49,7 @@ body {
 
 .scroll-arrow {
   font-size: 2rem;
-  color: rgba(255,255,255,0.6);
+  color: rgba(0,0,0,0.4);
 }
 
 @keyframes bounce {
