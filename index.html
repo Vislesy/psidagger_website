@@ -27,28 +27,14 @@
 <body>
   <!-- Section 1: Fullscreen hero -->
   <section class="hero" id="hero">
-    <img class="hero-media" src="image/img1.png" alt="PsiDagger molecular simulation">
-
-    <button class="nav-arrow nav-prev" aria-label="Previous image">&#8592;</button>
-    <button class="nav-arrow nav-next" aria-label="Next image">&#8594;</button>
+    <!-- Drop your Blender animation as hero.mp4 in the repo root -->
+    <video class="hero-media" autoplay muted loop playsinline>
+      <source src="hero.mp4" type="video/mp4">
+    </video>
 
     <div class="scroll-hint" aria-hidden="true">
       <span class="scroll-arrow">&#8595;</span>
     </div>
-
-    <script>
-      const images = ["image/img1.png", "image/img2.png", "image/img3.png", "image/img4.png"];
-      let current = 0;
-      const img = document.querySelector(".hero-media");
-      document.querySelector(".nav-prev").addEventListener("click", () => {
-        current = (current - 1 + images.length) % images.length;
-        img.src = images[current];
-      });
-      document.querySelector(".nav-next").addEventListener("click", () => {
-        current = (current + 1) % images.length;
-        img.src = images[current];
-      });
-    </script>
   </section>
 
   <!-- Section 2: Contact -->
@@ -58,7 +44,7 @@
       We&rsquo;d love to hear from you. Whether you&rsquo;re exploring a partnership
       or just curious about what we do&mdash;reach out.
     </p>
-    <a class="contact-btn" href="mailto:hello@psidagger.com">hello@psidagger.com</a>
+    <a class="contact-btn" href="mailto:info@psidagger.com">info@psidagger.com</a>
   </section>
 
   <!-- Logo (always visible) -->

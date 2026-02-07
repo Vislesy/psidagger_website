@@ -36,34 +36,6 @@ body {
   object-fit: contain;
 }
 
-/* ── Navigation arrows ── */
-
-.nav-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: rgba(0,0,0,0.4);
-  cursor: pointer;
-  padding: 1rem;
-  transition: color 0.2s;
-}
-
-.nav-arrow:hover {
-  color: rgba(0,0,0,0.7);
-}
-
-.nav-prev {
-  left: 2rem;
-}
-
-.nav-next {
-  right: 2rem;
-}
-
 /* ── Scroll hint arrow ── */
 
 .scroll-hint {
