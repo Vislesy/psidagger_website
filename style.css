@@ -25,6 +25,7 @@ body {
 .hero {
   position: relative;
   height: 100vh;
+  height: 100dvh;
   scroll-snap-align: start;
   overflow: hidden;
   background-color: #F1F1EC; /* RGB: 241, 241, 236 */
@@ -129,4 +130,5 @@ body {
   .contact-heading {
     font-size: 1.8rem;
   }
+
 }

@@ -50,5 +50,32 @@
   <div class="logo">
     <img class="logo-img" src="image/logo.png" alt="PsiDagger">
   </div>
+
+  <script>
+  (function () {
+    var video = document.querySelector('.hero-media');
+    var hint  = document.querySelector('.scroll-hint');
+
+    function positionArrow() {
+      if (!video.videoWidth) return;
+      var hero       = video.parentElement;
+      var videoRatio = video.videoWidth / video.videoHeight;
+      var heroRatio  = hero.clientWidth / hero.clientHeight;
+
+      if (videoRatio > heroRatio) {
+        // Letterboxed: video is wider than viewport, gap above & below
+        var renderedHeight = hero.clientWidth / videoRatio;
+        var gap = (hero.clientHeight - renderedHeight) / 2;
+        hint.style.bottom = Math.max(gap / 2, 16) + 'px';
+      } else {
+        hint.style.bottom = '2rem';
+      }
+    }
+
+    video.addEventListener('loadedmetadata', positionArrow);
+    window.addEventListener('resize', positionArrow);
+    if (video.videoWidth) positionArrow();
+  })();
+  </script>
 </body>
 </html>
