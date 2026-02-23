@@ -109,7 +109,7 @@
 
   <script>
   (function () {
-    var HASH = '0bffc310b63b1e6033b08c91fb937be87c25385b1697571dddb1ec40c9221771';
+    var HASH = 'ea69393999507fac18bc6bd1e61c974fabb0634d923b8dc7975d768d9fc08f94';
     var form = document.getElementById('deck-form');
     var gate = document.getElementById('gate');
     var viewer = document.getElementById('viewer');
@@ -147,6 +147,7 @@
 
       // Show the deck
       gate.style.display = 'none';
+      document.querySelector('.logo').style.display = 'none';
       viewer.style.display = 'block';
       var iframe = document.createElement('iframe');
       iframe.src = 'https://www.canva.com/design/DAHBbNabE3I/eRv8oWweOoUavxy_P40tUA/view?embed';
