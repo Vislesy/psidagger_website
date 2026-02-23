@@ -127,8 +127,14 @@ body {
 /* ── Responsive ── */
 
 @media (max-width: 768px) {
+  .hero-media {
+    object-fit: cover;
+    object-position: 38% 50%;
+    height: 60%;
+    top: 20%;
+  }
+
   .contact-heading {
     font-size: 1.8rem;
   }
-
 }
