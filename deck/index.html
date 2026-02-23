@@ -109,40 +109,37 @@
 
   <script>
   (function () {
-    var HASH = 'ea69393999507fac18bc6bd1e61c974fabb0634d923b8dc7975d768d9fc08f94';
     var form = document.getElementById('deck-form');
     var gate = document.getElementById('gate');
     var viewer = document.getElementById('viewer');
     var error = document.getElementById('error');
 
-    async function sha256(str) {
-      var buf = await crypto.subtle.digest('SHA-256',
-        new TextEncoder().encode(str));
-      return Array.from(new Uint8Array(buf))
-        .map(function (b) { return b.toString(16).padStart(2, '0'); })
-        .join('');
-    }
-
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       error.style.display = 'none';
 
-      var pw = form.password.value;
-      var hash = await sha256(pw);
+      // Verify password server-side
+      var res = await fetch('/.netlify/functions/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: form.password.value })
+      });
 
-      if (hash !== HASH) {
+      if (!res.ok) {
         error.style.display = 'block';
         return;
       }
 
-      // Submit form data to Netlify
-      var data = new URLSearchParams(new FormData(form));
-      data.delete('password');
-      data.append('form-name', 'deck-access');
+      var data = await res.json();
+
+      // Submit email to Netlify Forms
+      var formData = new URLSearchParams(new FormData(form));
+      formData.delete('password');
+      formData.append('form-name', 'deck-access');
       fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: data.toString()
+        body: formData.toString()
       });
 
       // Show the deck
@@ -150,7 +147,7 @@
       document.querySelector('.logo').style.display = 'none';
       viewer.style.display = 'block';
       var iframe = document.createElement('iframe');
-      iframe.src = 'https://www.canva.com/design/DAHBbNabE3I/eRv8oWweOoUavxy_P40tUA/view?embed';
+      iframe.src = data.url;
       iframe.setAttribute('allowfullscreen', '');
       viewer.appendChild(iframe);
     });
