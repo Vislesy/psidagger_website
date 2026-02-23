@@ -92,15 +92,17 @@
 </head>
 <body>
   <div class="gate" id="gate">
-    <h1>Request access to our deck</h1>
+    <h1>Access our deck</h1>
     <form id="deck-form" name="deck-access" data-netlify="true" method="POST">
-      <input type="text" name="name" placeholder="Name" required>
-      <input type="text" name="company" placeholder="Company" required>
       <input type="email" name="email" placeholder="Email" required>
-      <input type="password" name="password" placeholder="Password" required>
+      <input type="text" name="password" placeholder="Password" required>
       <p class="error" id="error">Incorrect password.</p>
       <button type="submit">View Deck</button>
     </form>
+  </div>
+
+  <div class="logo">
+    <img class="logo-img" src="/image/logo.png" alt="PsiDagger">
   </div>
 
   <div class="viewer" id="viewer"></div>
