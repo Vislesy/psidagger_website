@@ -7,3 +7,6 @@ node_modules/
 PSIDAGGERFRAMES/
 black_hero.mp4
 image/old
+
+# Local Netlify folder
+.netlify

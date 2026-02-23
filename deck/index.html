@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PsiDagger - Deck</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .gate {
+      height: 100vh;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #efece6;
+      padding: 2rem;
+    }
+
+    .gate h1 {
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 400;
+      color: #1a1a1a;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .gate form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .gate input {
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: 0.85rem;
+      padding: 0.8rem 1rem;
+      border: 1px solid #c0bdb6;
+      border-radius: 4px;
+      background: #fff;
+      color: #1a1a1a;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .gate input:focus {
+      border-color: #6b7cff;
+    }
+
+    .gate button {
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: 0.75rem;
+      color: #6b7cff;
+      background: transparent;
+      border: 2px solid #6b7cff;
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .gate button:hover {
+      background-color: #6b7cff;
+      color: #fff;
+    }
+
+    .gate .error {
+      color: #c0392b;
+      font-size: 0.8rem;
+      text-align: center;
+      display: none;
+    }
+
+    .viewer {
+      display: none;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      background: #0a0a0a;
+    }
+
+    .viewer iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="gate" id="gate">
+    <h1>Request access to our deck</h1>
+    <form id="deck-form" name="deck-access" data-netlify="true" method="POST">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="text" name="company" placeholder="Company" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <p class="error" id="error">Incorrect password.</p>
+      <button type="submit">View Deck</button>
+    </form>
+  </div>
+
+  <div class="viewer" id="viewer"></div>
+
+  <script>
+  (function () {
+    var HASH = '0bffc310b63b1e6033b08c91fb937be87c25385b1697571dddb1ec40c9221771';
+    var form = document.getElementById('deck-form');
+    var gate = document.getElementById('gate');
+    var viewer = document.getElementById('viewer');
+    var error = document.getElementById('error');
+
+    async function sha256(str) {
+      var buf = await crypto.subtle.digest('SHA-256',
+        new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf))
+        .map(function (b) { return b.toString(16).padStart(2, '0'); })
+        .join('');
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      error.style.display = 'none';
+
+      var pw = form.password.value;
+      var hash = await sha256(pw);
+
+      if (hash !== HASH) {
+        error.style.display = 'block';
+        return;
+      }
+
+      // Submit form data to Netlify
+      var data = new URLSearchParams(new FormData(form));
+      data.delete('password');
+      data.append('form-name', 'deck-access');
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: data.toString()
+      });
+
+      // Show the deck
+      gate.style.display = 'none';
+      viewer.style.display = 'block';
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.canva.com/design/DAHBbNabE3I/eRv8oWweOoUavxy_P40tUA/view?embed';
+      iframe.setAttribute('allowfullscreen', '');
+      viewer.appendChild(iframe);
+    });
+  })();
+  </script>
+</body>
+</html>
