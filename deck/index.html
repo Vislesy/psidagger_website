@@ -96,6 +96,7 @@
     <form id="deck-form" name="deck-access" data-netlify="true" method="POST">
       <input type="email" name="email" placeholder="Email" required>
       <input type="text" name="password" placeholder="Password" required>
+      <input type="hidden" name="deck">
       <p class="error" id="error">Incorrect password.</p>
       <button type="submit">View Deck</button>
     </form>
@@ -132,10 +133,11 @@
 
       var data = await res.json();
 
-      // Submit email to Netlify Forms
+      // Submit email + deck name to Netlify Forms
       var formData = new URLSearchParams(new FormData(form));
       formData.delete('password');
       formData.append('form-name', 'deck-access');
+      formData.append('deck', data.deck);
       fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
