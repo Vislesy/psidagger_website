@@ -19,31 +19,59 @@
   <meta name="twitter:description" content="The one-stop-shop for all polymer engineering — better-performing polymers, much faster.">
   <meta name="twitter:image" content="https://psidagger.com/og-image.png">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-
   <link rel="stylesheet" href="style.css">
+  <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+  <script src="pdb_data.js"></script>
 </head>
 <body>
   <!-- Section 1: Fullscreen hero -->
   <section class="hero" id="hero">
-    <!-- Drop your Blender animation as hero.mp4 in the repo root -->
     <video class="hero-media" autoplay muted loop playsinline poster="image/poster.png">
       <source src="hero.mp4" type="video/mp4">
     </video>
 
-    <div class="scroll-hint" aria-hidden="true">
+    <a class="scroll-hint" href="#polyformer" aria-label="Scroll to Polyformer section">
       <span class="scroll-arrow">&#8595;</span>
-    </div>
+    </a>
   </section>
 
-  <!-- Section 2: Contact -->
-  <section class="contact" id="contact">
-    <h2 class="contact-heading">A paradigm shift in engineering polymeric molecules is brewing ...</h2>
-    <p class="contact-text">
-      "Nature isn't classical, dammit, and if you want to make a simulation of nature, you'd better make it quantum mechanical." &mdash; Richard Feynman
-    </p>
-    <a class="contact-btn" href="mailto:info@psidagger.com">info@psidagger.com</a>
+  <!-- Section 2: Polyformer -->
+  <section class="polyformer" id="polyformer">
+    <div class="polyformer-content">
+      <h1 class="polyformer-title">Polyformer</h1>
+      <p class="polyformer-tagline">From sequence to thermal conformational ensembles of polymers.</p>
+
+      <p class="polyformer-body">
+        All-atom ensemble sampled by Polyformer for a 76-residue peptide,
+        CATH domain <span class="mono">3g0vA00</span>, at two temperatures.
+        Each ensemble: 100 conformations in ~13 seconds on a laptop RTX 4070 Ti.
+      </p>
+      <p class="polyformer-disclaimer">
+        This peptide is from an unseen test sample.
+      </p>
+
+      <p class="polyformer-legend">
+        <span class="swatch swatch-ref"></span>mdCATH reference &mdash; one frame from the molecular-dynamics trajectory for this peptide (<a href="https://huggingface.co/datasets/compsciencelab/mdCATH" target="_blank" rel="noopener">mdCATH</a>)
+        <br>
+        <span class="swatch swatch-ens"></span>Polyformer ensemble &mdash; 100 structures sampled directly from sequence + temperature
+      </p>
+
+      <div class="polyformer-viewers">
+        <figure class="viewer-card">
+          <figcaption>input: (<span class="mono">"GPWADIMQGP&hellip;VLDRQ"</span>, 320 K)</figcaption>
+          <div id="viewer-320" class="viewer"></div>
+        </figure>
+        <figure class="viewer-card">
+          <figcaption>input: (<span class="mono">"GPWADIMQGP&hellip;VLDRQ"</span>, 450 K)</figcaption>
+          <div id="viewer-450" class="viewer"></div>
+        </figure>
+      </div>
+
+      <p class="polyformer-hint">drag to rotate &middot; scroll to zoom</p>
+
+      <a class="contact-btn" href="mailto:info@psidagger.com">info@psidagger.com</a>
+    </div>
   </section>
 
   <!-- Logo (always visible) -->
@@ -63,7 +91,6 @@
       var heroRatio  = hero.clientWidth / hero.clientHeight;
 
       if (videoRatio > heroRatio) {
-        // Letterboxed: video is wider than viewport, gap above & below
         var renderedHeight = hero.clientWidth / videoRatio;
         var gap = (hero.clientHeight - renderedHeight) / 2;
         hint.style.bottom = Math.max(gap / 2, 16) + 'px';
@@ -76,6 +103,42 @@
     window.addEventListener('resize', positionArrow);
     if (video.videoWidth) positionArrow();
   })();
+  </script>
+
+  <script>
+    // Muted palette on-brand with psidagger (periwinkle / slate / mauve / tan).
+    const palette = [
+      "#6b7cff", "#8b98ff", "#4d5dbf", "#9ba3c9",
+      "#3a3a3a", "#5a5a5a", "#7a7a7a", "#b5b8d0",
+      "#8a7f8f", "#6b5b73", "#a8967a", "#c0b59a"
+    ];
+
+    function initViewer(elementId, reference, frames) {
+      const el = document.getElementById(elementId);
+      const viewer = $3Dmol.createViewer(el, { backgroundColor: "#efece6" });
+
+      // Model 0: mdCATH reference structure, thicker blue backbone for contrast.
+      viewer.addModel(reference, "pdb");
+      viewer.setStyle({ model: 0 }, {
+        stick: { color: "steelblue", radius: 0.2 }
+      });
+
+      // Models 1..N: Polyformer ensemble samples, thin muted sticks.
+      frames.forEach((frame, i) => {
+        viewer.addModel(frame, "pdb");
+        viewer.setStyle({ model: i + 1 }, {
+          stick: { color: palette[i % palette.length], radius: 0.1, opacity: 0.7 }
+        });
+      });
+
+      viewer.zoomTo();
+      viewer.render();
+    }
+
+    window.addEventListener("load", () => {
+      initViewer("viewer-320", window.PF_REF_320K, window.PF_320K);
+      initViewer("viewer-450", window.PF_REF_450K, window.PF_450K);
+    });
   </script>
 </body>
 </html>
