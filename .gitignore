@@ -10,3 +10,4 @@ image/old
 
 # Local Netlify folder
 .netlify
+.vscode
