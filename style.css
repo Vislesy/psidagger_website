@@ -80,7 +80,7 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   scroll-snap-align: start;
-  background-color: #efece6;
+  background-color: #f2f5eb;
   color: #1a1a1a;
   padding: 4rem 2rem 6rem;
   display: flex;
@@ -119,42 +119,7 @@ body {
   font-style: italic;
   font-size: clamp(1rem, 1.6vw, 1.25rem);
   color: #3a3a3a;
-  margin-bottom: 1.5rem;
-}
-
-.polyformer-legend {
-  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
-  line-height: 2.2;
-  color: #3a3a3a;
-  margin-bottom: 2.5rem;
-}
-
-.polyformer-legend a {
-  color: #6b7cff;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
-}
-
-.polyformer-legend a:hover {
-  border-bottom-color: #6b7cff;
-}
-
-.swatch {
-  display: inline-block;
-  width: 0.85rem;
-  height: 0.85rem;
-  border-radius: 2px;
-  vertical-align: -0.05rem;
-  margin-right: 0.55rem;
-}
-
-.swatch-ref {
-  background-color: steelblue;
-}
-
-.swatch-ens {
-  background: linear-gradient(90deg, #6b7cff 0%, #8a7f8f 50%, #a8967a 100%);
+  margin-bottom: 3rem;
 }
 
 .polyformer-viewers {
@@ -190,17 +155,12 @@ body {
 
 .viewer {
   width: 100%;
-  height: 560px;
-  position: relative;
+  aspect-ratio: 1 / 1;
+  display: block;
+  object-fit: contain;
   border: 1px solid #d9d5cc;
   border-radius: 4px;
-  background-color: #efece6;
-}
-
-.polyformer-hint {
-  font-size: clamp(0.85rem, 1.1vw, 1rem);
-  color: #8a8578;
-  letter-spacing: 0.05em;
+  background-color: #f2f5eb;
   margin-bottom: 3.5rem;
 }
 
@@ -246,6 +206,5 @@ body {
 /* ── Responsive ── */
 
 @media (max-width: 768px) {
-  .viewer { height: 420px; }
   .polyformer { padding: 3rem 1.25rem 4rem; }
 }
