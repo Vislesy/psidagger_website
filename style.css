@@ -80,7 +80,7 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   scroll-snap-align: start;
-  background-color: #f2f5eb;
+  background-color: #f3f6ec;
   color: #1a1a1a;
   padding: 4rem 2rem 6rem;
   display: flex;
