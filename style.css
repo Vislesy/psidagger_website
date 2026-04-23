@@ -90,6 +90,7 @@ body {
 .polyformer-content {
   width: 100%;
   max-width: 1100px;
+  text-align: center;
 }
 
 .polyformer-title {
@@ -126,6 +127,7 @@ body {
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap;
+  justify-content: center;
   margin-bottom: 0.8rem;
 }
 
